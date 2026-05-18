@@ -1,0 +1,26 @@
+# Eclipse
+bin/
+*.launch
+.settings/
+.metadata/
+.classpath
+.project
+
+# IntelliJ IDEA
+out/
+*.ipr
+*.iws
+*.iml
+.idea/
+
+# Gradle
+build/
+.gradle/
+
+# Runtime
+run/
+acetylcholine_agent-trace.log
+acetylcholine-agent-trace.log
+
+# Forge MDK
+forge*changelog.txt

@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'net.fly'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.ow2.asm:asm:9.6'
+    implementation 'org.ow2.asm:asm-tree:9.6'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+shadowJar {
+    archiveClassifier = ''
+
+    relocate 'org.objectweb.asm', 'net.fly.acetylcholine.agent.shaded.asm'
+
+    manifest {
+        attributes(
+            'Premain-Class': 'net.fly.acetylcholine.agent.AcetylcholineAgent',
+            'Agent-Class': 'net.fly.acetylcholine.agent.AcetylcholineAgent',
+            'Can-Redefine-Classes': 'true',
+            'Can-Retransform-Classes': 'true'
+        )
+    }
+}
+
+jar.enabled = false
+assemble.dependsOn shadowJar
